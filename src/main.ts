@@ -5,8 +5,6 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as basicAuth from 'express-basic-auth';
 
-
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.use(
@@ -20,8 +18,8 @@ async function bootstrap() {
         },
     }),);
 
-  console.log(join(__dirname, '..', 'public'));
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  console.log(join(__dirname, '..', '..', 'public'));
+  app.useStaticAssets(join(__dirname, '..','..', 'public'));
 
   const config = new DocumentBuilder()
   .setTitle('AstroUPV API')
@@ -30,8 +28,6 @@ async function bootstrap() {
   .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('admin', app, document);
-
-
 
   await app.listen(8080);
 
