@@ -19,7 +19,8 @@ async function bootstrap() {
           Nicolas : "contraseña"
         },
     }),);
-    
+
+  console.log(join(__dirname, '..', 'public'));
   app.useStaticAssets(join(__dirname, '..', 'public'));
 
   const config = new DocumentBuilder()
