@@ -33,7 +33,7 @@ export class FotosController {
 
   @Delete(':nombre/:clave/:id')
   remove(@Param('id') id: string, @Param('nombre') nombre: string, @Param('clave') clave: string) {
-    if(nombre == "PabloE" && clave == "457r0n0m14UpV"){
+    if(nombre == "AstroUPV" && clave == "457r0n0m14UpV"){
       return this.fotosService.remove(id);
     }
   }

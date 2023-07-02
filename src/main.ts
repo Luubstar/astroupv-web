@@ -12,7 +12,7 @@ async function bootstrap() {
     basicAuth({
         challenge: true,
         users: {
-          PabloE : "457r0n0m14UpV",
+          AstroUPV : "457r0n0m14UpV",
         },
     }),);
 
