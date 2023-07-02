@@ -2,8 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FotosService } from './fotos.service';
 import { CreateFotoDto } from './dto/create-foto.dto';
 import { UpdateFotoDto } from './dto/update-foto.dto';
+import { ApiTags } from '@nestjs/swagger'; 
+import { Request } from 'express';
+import { Req } from '@nestjs/common';
 
 @Controller('fotos')
+@ApiTags('fotos') 
 export class FotosController {
   constructor(private readonly fotosService: FotosService) {}
 
@@ -13,22 +17,22 @@ export class FotosController {
   }
 
   @Get()
-  findAll() {
-    return this.fotosService.findAll();
+  findAll(@Req() request: Request) { 
+    return this.fotosService.findAll(request); 
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.fotosService.findOne(+id);
+    return this.fotosService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFotoDto: UpdateFotoDto) {
-    return this.fotosService.update(+id, updateFotoDto);
+    return this.fotosService.update(id, updateFotoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.fotosService.remove(+id);
+    return this.fotosService.remove(id);
   }
 }

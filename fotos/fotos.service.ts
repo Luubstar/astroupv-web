@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFotoDto } from './dto/create-foto.dto';
 import { UpdateFotoDto } from './dto/update-foto.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Foto, FotoDocument } from './schemas/foto.schema';
+import { Model } from 'mongoose';
+import { Request } from 'express';
 
 @Injectable()
 export class FotosService {
-  create(createFotoDto: CreateFotoDto) {
-    return 'This action adds a new foto';
+  constructor( 
+    @InjectModel(Foto.name) private readonly fotoModel: Model<FotoDocument>, 
+  ) {}
+
+  async create(createBookDto: CreateFotoDto): Promise<Foto> { 
+    return this.fotoModel.create(createBookDto); 
   }
 
-  findAll() {
-    return `This action returns all fotos`;
+  async findAll(request: Request): Promise<Foto[]> { 
+    return this.fotoModel
+      .find(request.query) 
+      .setOptions({ sanitizeFilter: true }) 
+      .exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} foto`;
+  async findOne(id: string): Promise<Foto> { 
+    return this.fotoModel.findOne({ _id: id }).exec(); 
   }
 
-  update(id: number, updateFotoDto: UpdateFotoDto) {
-    return `This action updates a #${id} foto`;
+  async update(id: string, updateBookDto: UpdateFotoDto): Promise<Foto> { 
+    return this.fotoModel.findOneAndUpdate({ _id: id }, updateBookDto, { 
+      new: true, 
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} foto`;
+  async remove(id: string) { 
+    return this.fotoModel.findByIdAndRemove({ _id: id }).exec(); 
   }
 }
