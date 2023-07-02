@@ -31,8 +31,10 @@ export class FotosController {
     return this.fotosService.update(id, updateFotoDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.fotosService.remove(id);
+  @Delete(':nombre/:clave/:id')
+  remove(@Param('id') id: string, @Param('nombre') nombre: string, @Param('clave') clave: string) {
+    if(nombre == "PabloE" && clave == "457r0n0m14UpV"){
+      return this.fotosService.remove(id);
+    }
   }
 }
