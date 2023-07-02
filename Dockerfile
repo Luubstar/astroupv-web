@@ -27,4 +27,4 @@ COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
 
 ADD public ./public
 
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]
