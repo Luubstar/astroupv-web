@@ -1,13 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res} from '@nestjs/common';
 import { FotosService } from './fotos.service';
 import { CreateFotoDto } from './dto/create-foto.dto';
 import { UpdateFotoDto } from './dto/update-foto.dto';
 import { ApiTags } from '@nestjs/swagger'; 
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { Req } from '@nestjs/common';
 
 @Controller('fotos')
-@ApiTags('fotos') 
+@ApiTags('fotos')  
 export class FotosController {
   constructor(private readonly fotosService: FotosService) {}
 
@@ -26,14 +26,19 @@ export class FotosController {
     return this.fotosService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFotoDto: UpdateFotoDto) {
+  @Get(":nombre/:clave")
+  login(@Param('nombre') nombre: string, @Param('clave') clave: string, @Res() res : Response){
+    if (this.fotosService.checkLogIn(nombre, clave)){res.sendStatus(200);}
+  }
+
+  @Patch(':nombre/:clave/:id')
+  update(@Param('id') id: string, @Param('nombre') nombre: string, @Param('clave') clave: string, @Body() updateFotoDto: UpdateFotoDto) {
     return this.fotosService.update(id, updateFotoDto);
   }
 
   @Delete(':nombre/:clave/:id')
   remove(@Param('id') id: string, @Param('nombre') nombre: string, @Param('clave') clave: string) {
-    if(nombre == "AstroUPV" && clave == "457r0n0m14UpV"){
+    if(this.fotosService.checkLogIn(nombre, clave)){
       return this.fotosService.remove(id);
     }
   }

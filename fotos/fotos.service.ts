@@ -12,6 +12,10 @@ export class FotosService {
     @InjectModel(Foto.name) private readonly fotoModel: Model<FotoDocument>, 
   ) {}
 
+  async checkLogIn(Nombre:string, Clave:string){
+    return Nombre == "AstroUPV" && Clave == "457r0n0m14UpV";
+  }
+
   async create(createBookDto: CreateFotoDto): Promise<Foto> { 
     return this.fotoModel.create(createBookDto); 
   }
