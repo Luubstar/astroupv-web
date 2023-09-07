@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-export class CreateFotoDto {
+export class PostFotoDto {
   @ApiProperty({ 
     example: 'Foto de la luna',
   })
@@ -13,10 +13,5 @@ export class CreateFotoDto {
 
   @ApiProperty({ example: 'NASA' })
   autor: string;
-
-  @ApiProperty({
-    example: 'https://es.wikipedia.org/wiki/Luna',
-  })
-  imagen_url: string;
 
 }
