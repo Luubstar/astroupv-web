@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript repository for AstroUPV
+[Nest](https://github.com/nestjs/nest) framework TypeScript repository for AstroUPV.
 
 ## Installation
 
